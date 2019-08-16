@@ -249,14 +249,14 @@ def solve(c):
 
 def repeats(turns):
     c = Cube()
-    repeats = 0
+    c.turn(turns)
+    repeats = 1
 
-    while True:
+    while c.state() != States.solved:
         c.turn(turns)
         repeats += 1
 
-        if c.state() == States.solved:
-            return repeats
+    return repeats
 
 
 if __name__ == '__main__':

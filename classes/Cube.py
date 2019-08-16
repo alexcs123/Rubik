@@ -35,9 +35,7 @@ class Cube:
         self.turn(turns[:-1])
 
     def turn(self, turns):
-        turns = turns.split()
-
-        for turn in turns:
+        for turn in turns.split():
             if turn == 'u':
                 self.turnup()
             elif turn == 'f':
