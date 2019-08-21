@@ -6,7 +6,7 @@ from enums.Colours import Colours
 
 class Cube:
     """Cube object"""
-    def __init__(self, state=States.solved):
+    def __init__(self, state=States.solved, shuffles=100):
         """Constructs cube in given state"""
         self.up = Side(Colours.white)
         self.front = Side(Colours.red)
@@ -20,7 +20,7 @@ class Cube:
         self.time = None
 
         if state == States.scrambled:
-            self.scramble()
+            self.scramble(shuffles)
 
     def state(self):
         """Returns state of cube"""
