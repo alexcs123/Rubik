@@ -1,8 +1,10 @@
+from time import time
 from classes.Cube import Cube, States
 
 
 def solve(c):
-    """Solves given cube"""
+    """Returns solved cube"""
+    start = time()
     up = c.up.colour()
 
     while c.up.top.colour != up or c.up.right.colour != up or c.up.bottom.colour != up or c.up.left.colour != up or c.front.top.colour != c.front.colour() or c.right.top.colour != c.right.colour() or c.back.top.colour != c.back.colour() or c.left.top.colour != c.left.colour():
@@ -245,6 +247,8 @@ def solve(c):
 
         c.turn('ui')
 
+    c.time = time() - start
+
     return c
 
 
@@ -262,6 +266,6 @@ def repeats(turns):
 
 
 if __name__ == '__main__':
-    print(solve(Cube(States.scrambled)).state().name)
+    print(solve(Cube(States.scrambled)).time)
 
     print(repeats('u z'))

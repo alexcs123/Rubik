@@ -16,6 +16,8 @@ class Cube:
         self.down = Side(Colours.yellow)
 
         self._sides = (self.up, self.front, self.right, self.back, self.left, self.down)
+        self.shuffles = None
+        self.time = None
 
         if state == States.scrambled:
             self.scramble()
@@ -36,7 +38,8 @@ class Cube:
         for i in range(shuffles):
             turns += choice(['u ', 'f ', 'r ', 'b ', 'l ', 'd ', 'ui ', 'fi ', 'ri ', 'bi ', 'li ', 'di ', 'x ', 'y ', 'z ', 'xi ', 'yi ', 'zi '])
 
-        self.turn(turns[:-1])
+        self.shuffles = turns[:-1]
+        self.turn(self.shuffles)
 
     def turn(self, turns):
         """Performs sequence of turns"""
