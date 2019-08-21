@@ -2,7 +2,9 @@ from classes.Piece import Piece
 
 
 class Side:
+    """Side object"""
     def __init__(self, colour):
+        """Constructs side in given colour"""
         self.topleft = Piece(colour)
         self.top = Piece(colour)
         self.topright = Piece(colour)
@@ -16,4 +18,5 @@ class Side:
         self.pieces = (self.topleft, self.top, self.topright, self.left, self.middle, self.right, self.bottomleft, self.bottom, self.bottomright)
 
     def colour(self):
+        """Retruns colour of side"""
         return self.middle.colour

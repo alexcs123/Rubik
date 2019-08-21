@@ -5,7 +5,9 @@ from enums.Colours import Colours
 
 
 class Cube:
+    """Cube object"""
     def __init__(self, state=States.solved):
+        """Constructs cube in given state"""
         self.up = Side(Colours.white)
         self.front = Side(Colours.red)
         self.right = Side(Colours.blue)
@@ -13,13 +15,14 @@ class Cube:
         self.left = Side(Colours.green)
         self.down = Side(Colours.yellow)
 
-        self.sides = (self.up, self.front, self.right, self.back, self.left, self.down)
+        self._sides = (self.up, self.front, self.right, self.back, self.left, self.down)
 
         if state == States.scrambled:
             self.scramble()
 
     def state(self):
-        for side in self.sides:
+        """Returns state of cube"""
+        for side in self._sides:
             for piece in side.pieces:
                 if piece.colour != side.colour():
                     return States.scrambled
@@ -27,6 +30,7 @@ class Cube:
         return States.solved
 
     def scramble(self, shuffles=100):
+        """Scrambles cube with given number of turns"""
         turns = ''
 
         for i in range(shuffles):
@@ -35,63 +39,65 @@ class Cube:
         self.turn(turns[:-1])
 
     def turn(self, turns):
+        """Performs sequence of turns"""
         for turn in turns.split():
             if turn == 'u':
-                self.turnup()
+                self._turnup()
             elif turn == 'f':
-                self.turnfront()
+                self._turnfront()
             elif turn == 'r':
-                self.turnright()
+                self._turnright()
             elif turn == 'b':
-                self.turnback()
+                self._turnback()
             elif turn == 'l':
-                self.turnleft()
+                self._turnleft()
             elif turn == 'd':
-                self.turndown()
+                self._turndown()
             elif turn == 'x':
-                self.turnx()
+                self._turnx()
             elif turn == 'y':
-                self.turny()
+                self._turny()
             elif turn == 'z':
-                self.turnz()
+                self._turnz()
             elif turn == 'ui':
-                self.turnupinv()
+                self._turnupinv()
             elif turn == 'fi':
-                self.turnfrontinv()
+                self._turnfrontinv()
             elif turn == 'ri':
-                self.turnrightinv()
+                self._turnrightinv()
             elif turn == 'bi':
-                self.turnbackinv()
+                self._turnbackinv()
             elif turn == 'li':
-                self.turnleftinv()
+                self._turnleftinv()
             elif turn == 'di':
-                self.turndowninv()
+                self._turndowninv()
             elif turn == 'xi':
-                self.turnxinv()
+                self._turnxinv()
             elif turn == 'yi':
-                self.turnyinv()
+                self._turnyinv()
             elif turn == 'zi':
-                self.turnzinv()
+                self._turnzinv()
             elif turn == '2u':
-                self.turn2up()
+                self._turn2up()
             elif turn == '2f':
-                self.turn2front()
+                self._turn2front()
             elif turn == '2r':
-                self.turn2right()
+                self._turn2right()
             elif turn == '2b':
-                self.turn2back()
+                self._turn2back()
             elif turn == '2l':
-                self.turn2left()
+                self._turn2left()
             elif turn == '2d':
-                self.turn2down()
+                self._turn2down()
             elif turn == '2x':
-                self.turn2x()
+                self._turn2x()
             elif turn == '2y':
-                self.turn2y()
+                self._turn2y()
             elif turn == '2z':
-                self.turn2z()
+                self._turn2z()
 
-    def turnup(self):
+    def _turnup(self):
+        """Performs an up turn"""
         buffer = self.up.topleft.colour
         self.up.topleft.colour = self.up.bottomleft.colour
         self.up.bottomleft.colour = self.up.bottomright.colour
@@ -122,7 +128,8 @@ class Cube:
         self.back.topleft.colour = self.left.topright.colour
         self.left.topright.colour = buffer
 
-    def turnfront(self):
+    def _turnfront(self):
+        """Performs a front turn"""
         buffer = self.front.topleft.colour
         self.front.topleft.colour = self.front.bottomleft.colour
         self.front.bottomleft.colour = self.front.bottomright.colour
@@ -153,7 +160,8 @@ class Cube:
         self.down.bottomleft.colour = self.right.bottomleft.colour
         self.right.bottomleft.colour = buffer
 
-    def turnright(self):
+    def _turnright(self):
+        """Performs a right turn"""
         buffer = self.right.topleft.colour
         self.right.topleft.colour = self.right.bottomleft.colour
         self.right.bottomleft.colour = self.right.bottomright.colour
@@ -184,7 +192,8 @@ class Cube:
         self.down.bottomright.colour = self.back.bottomright.colour
         self.back.bottomright.colour = buffer
 
-    def turnback(self):
+    def _turnback(self):
+        """Performs a back turn"""
         buffer = self.back.topleft.colour
         self.back.topleft.colour = self.back.topright.colour
         self.back.topright.colour = self.back.bottomright.colour
@@ -215,7 +224,8 @@ class Cube:
         self.down.topleft.colour = self.left.topleft.colour
         self.left.topleft.colour = buffer
 
-    def turnleft(self):
+    def _turnleft(self):
+        """Performs a left turn"""
         buffer = self.left.topleft.colour
         self.left.topleft.colour = self.left.bottomleft.colour
         self.left.bottomleft.colour = self.left.bottomright.colour
@@ -246,7 +256,8 @@ class Cube:
         self.down.topleft.colour = self.front.bottomleft.colour
         self.front.bottomleft.colour = buffer
 
-    def turndown(self):
+    def _turndown(self):
+        """Performs a down turn"""
         buffer = self.down.topleft.colour
         self.down.topleft.colour = self.down.topright.colour
         self.down.topright.colour = self.down.bottomright.colour
@@ -277,9 +288,10 @@ class Cube:
         self.back.bottomleft.colour = self.right.bottomright.colour
         self.right.bottomright.colour = buffer
 
-    def turnx(self):
-        self.turnright()
-        self.turnleftinv()
+    def _turnx(self):
+        """Performs an x rotation"""
+        self._turnright()
+        self._turnleftinv()
 
         buffer = self.up.top.colour
         self.up.top.colour = self.front.top.colour
@@ -299,9 +311,10 @@ class Cube:
         self.down.top.colour = self.back.top.colour
         self.back.top.colour = buffer
 
-    def turny(self):
-        self.turnup()
-        self.turndowninv()
+    def _turny(self):
+        """Performs a y rotation"""
+        self._turnup()
+        self._turndowninv()
 
         buffer = self.front.left.colour
         self.front.left.colour = self.right.left.colour
@@ -321,9 +334,10 @@ class Cube:
         self.back.left.colour = self.left.right.colour
         self.left.right.colour = buffer
 
-    def turnz(self):
-        self.turnfront()
-        self.turnbackinv()
+    def _turnz(self):
+        """Performs a z rotation"""
+        self._turnfront()
+        self._turnbackinv()
 
         buffer = self.up.left.colour
         self.up.left.colour = self.left.bottom.colour
@@ -343,7 +357,8 @@ class Cube:
         self.down.left.colour = self.right.bottom.colour
         self.right.bottom.colour = buffer
 
-    def turnupinv(self):
+    def _turnupinv(self):
+        """Performs an up inverted turn"""
         buffer = self.up.topleft.colour
         self.up.topleft.colour = self.up.topright.colour
         self.up.topright.colour = self.up.bottomright.colour
@@ -374,7 +389,8 @@ class Cube:
         self.back.topleft.colour = self.right.topright.colour
         self.right.topright.colour = buffer
 
-    def turnfrontinv(self):
+    def _turnfrontinv(self):
+        """Performs a front inverted turn"""
         buffer = self.front.topleft.colour
         self.front.topleft.colour = self.front.topright.colour
         self.front.topright.colour = self.front.bottomright.colour
@@ -405,7 +421,8 @@ class Cube:
         self.down.bottomleft.colour = self.left.topright.colour
         self.left.topright.colour = buffer
 
-    def turnrightinv(self):
+    def _turnrightinv(self):
+        """Performs a right inverted turn"""
         buffer = self.right.topleft.colour
         self.right.topleft.colour = self.right.topright.colour
         self.right.topright.colour = self.right.bottomright.colour
@@ -436,7 +453,8 @@ class Cube:
         self.down.bottomright.colour = self.front.topright.colour
         self.front.topright.colour = buffer
 
-    def turnbackinv(self):
+    def _turnbackinv(self):
+        """Performs a back inverted turn"""
         buffer = self.back.topleft.colour
         self.back.topleft.colour = self.back.bottomleft.colour
         self.back.bottomleft.colour = self.back.bottomright.colour
@@ -467,7 +485,8 @@ class Cube:
         self.down.topleft.colour = self.right.bottomright.colour
         self.right.bottomright.colour = buffer
 
-    def turnleftinv(self):
+    def _turnleftinv(self):
+        """Performs a left inverted turn"""
         buffer = self.left.topleft.colour
         self.left.topleft.colour = self.left.topright.colour
         self.left.topright.colour = self.left.bottomright.colour
@@ -498,7 +517,8 @@ class Cube:
         self.down.topleft.colour = self.back.topleft.colour
         self.back.topleft.colour = buffer
 
-    def turndowninv(self):
+    def _turndowninv(self):
+        """Performs a down inverted turn"""
         buffer = self.down.topleft.colour
         self.down.topleft.colour = self.down.bottomleft.colour
         self.down.bottomleft.colour = self.down.bottomright.colour
@@ -529,9 +549,10 @@ class Cube:
         self.back.bottomleft.colour = self.left.bottomright.colour
         self.left.bottomright.colour = buffer
 
-    def turnxinv(self):
-        self.turnleft()
-        self.turnrightinv()
+    def _turnxinv(self):
+        """Performs an x inverted rotation"""
+        self._turnleft()
+        self._turnrightinv()
 
         buffer = self.up.top.colour
         self.up.top.colour = self.back.bottom.colour
@@ -551,9 +572,10 @@ class Cube:
         self.down.top.colour = self.front.bottom.colour
         self.front.bottom.colour = buffer
 
-    def turnyinv(self):
-        self.turnupinv()
-        self.turndown()
+    def _turnyinv(self):
+        """Performs a y inverted rotation"""
+        self._turnupinv()
+        self._turndown()
 
         buffer = self.front.left.colour
         self.front.left.colour = self.left.left.colour
@@ -573,9 +595,10 @@ class Cube:
         self.back.left.colour = self.right.right.colour
         self.right.right.colour = buffer
 
-    def turnzinv(self):
-        self.turnfrontinv()
-        self.turnback()
+    def _turnzinv(self):
+        """Performs a z inverted rotation"""
+        self._turnfrontinv()
+        self._turnback()
 
         buffer = self.up.left.colour
         self.up.left.colour = self.right.top.colour
@@ -595,7 +618,8 @@ class Cube:
         self.down.left.colour = self.left.top.colour
         self.left.top.colour = buffer
 
-    def turn2up(self):
+    def _turn2up(self):
+        """Performs 2 up turns"""
         buffer = self.up.topleft.colour
         self.up.topleft.colour = self.up.bottomright.colour
         self.up.bottomright.colour = buffer
@@ -636,7 +660,8 @@ class Cube:
         self.right.topright.colour = self.left.topright.colour
         self.left.topright.colour = buffer
 
-    def turn2front(self):
+    def _turn2front(self):
+        """Performs 2 front turns"""
         buffer = self.front.topleft.colour
         self.front.topleft.colour = self.front.bottomright.colour
         self.front.bottomright.colour = buffer
@@ -677,7 +702,8 @@ class Cube:
         self.right.bottomleft.colour = self.left.topright.colour
         self.left.topright.colour = buffer
 
-    def turn2right(self):
+    def _turn2right(self):
+        """Performs 2 right turns"""
         buffer = self.right.topleft.colour
         self.right.topleft.colour = self.right.bottomright.colour
         self.right.bottomright.colour = buffer
@@ -718,7 +744,8 @@ class Cube:
         self.front.bottomright.colour = self.back.topright.colour
         self.back.topright.colour = buffer
 
-    def turn2back(self):
+    def _turn2back(self):
+        """Performs 2 back turns"""
         buffer = self.back.topleft.colour
         self.back.topleft.colour = self.back.bottomright.colour
         self.back.bottomright.colour = buffer
@@ -759,7 +786,8 @@ class Cube:
         self.right.bottomright.colour = self.left.topleft.colour
         self.left.topleft.colour = buffer
 
-    def turn2left(self):
+    def _turn2left(self):
+        """Performs 2 left turns"""
         buffer = self.left.topleft.colour
         self.left.topleft.colour = self.left.bottomright.colour
         self.left.bottomright.colour = buffer
@@ -800,7 +828,8 @@ class Cube:
         self.front.bottomleft.colour = self.back.topleft.colour
         self.back.topleft.colour = buffer
 
-    def turn2down(self):
+    def _turn2down(self):
+        """Performs 2 down turns"""
         buffer = self.down.topleft.colour
         self.down.topleft.colour = self.down.bottomright.colour
         self.down.bottomright.colour = buffer
@@ -841,9 +870,10 @@ class Cube:
         self.right.bottomright.colour = self.left.bottomright.colour
         self.left.bottomright.colour = buffer
 
-    def turn2x(self):
-        self.turn2right()
-        self.turn2left()
+    def _turn2x(self):
+        """Performs 2 x rotations"""
+        self._turn2right()
+        self._turn2left()
 
         buffer = self.up.top.colour
         self.up.top.colour = self.down.bottom.colour
@@ -869,9 +899,10 @@ class Cube:
         self.front.bottom.colour = self.back.top.colour
         self.back.top.colour = buffer
 
-    def turn2y(self):
-        self.turn2up()
-        self.turn2down()
+    def _turn2y(self):
+        """Performs 2 y rotations"""
+        self._turn2up()
+        self._turn2down()
 
         buffer = self.front.left.colour
         self.front.left.colour = self.back.right.colour
@@ -897,9 +928,10 @@ class Cube:
         self.right.right.colour = self.left.right.colour
         self.left.right.colour = buffer
 
-    def turn2z(self):
-        self.turn2front()
-        self.turn2back()
+    def _turn2z(self):
+        """Performs 2 z rotations"""
+        self._turn2front()
+        self._turn2back()
 
         buffer = self.up.left.colour
         self.up.left.colour = self.down.right.colour

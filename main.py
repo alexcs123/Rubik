@@ -2,6 +2,7 @@ from classes.Cube import Cube, States
 
 
 def solve(c):
+    """Solves given cube"""
     up = c.up.colour()
 
     while c.up.top.colour != up or c.up.right.colour != up or c.up.bottom.colour != up or c.up.left.colour != up or c.front.top.colour != c.front.colour() or c.right.top.colour != c.right.colour() or c.back.top.colour != c.back.colour() or c.left.top.colour != c.left.colour():
@@ -248,6 +249,7 @@ def solve(c):
 
 
 def repeats(turns):
+    """Returns number of times a sequence must be repeated to return to original state"""
     c = Cube()
     c.turn(turns)
     repeats = 1
