@@ -2,7 +2,7 @@
 
 Create a new cube by calling ```Cube()```, and optioanlly specify its starting
 state with either ```States.scrambled``` or ```States.solved``` (default).
-Call ```state()``` to check the current state of a cube, and ```scramble``` to
+Call ```state()``` to check the current state of a cube, and ```scramble()``` to
 scramble the cube, optionally specifying the number of turns to perform the
 scramble (default is 100). Perform turns on the cube by calling ```turn()```,
 and providing your turns as a space delimited string. Allowed turns are:
@@ -49,9 +49,9 @@ been scrambled, the string of turns performed during the scramble can be
 found by returning its ```shuffles``` variable. There is also a ```time```
 variable, which can be used to store the solve time of a cube by the user.
 
-As well as a ```solve()``` algorithm, ```main.py``` contains a ```repeat```
+As well as a ```solve()``` algorithm, ```main.py``` contains a ```repeat()```
 algorithm that, given a string of turns, will return the number of times that
-string of turns must be performed in order for the cube to return to its
+string of turns must be repeated in order for the cube to return to its
 initial state. For example, the string of turns ```'ri di r d'``` must be
 repeated ```6``` times for the cube to return to the state it assumed before
 any turns were made.
